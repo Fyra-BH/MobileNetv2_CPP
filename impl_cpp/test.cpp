@@ -5,13 +5,27 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    cout << "hello wolrd" << endl;
-    dimension d = dimension("3,3,125,125");
-    cout << d.length() << endl;
-    for (int i = 0; i < d.length(); i++)
+    
+    cout << "let's begin" << endl;
+    tensor img = tensor(dimension("3,3,3"));
+    img = img[2][2];
+
+    cout << "img val:" << endl;
+    for (int i = 0; i < img.size(); ++i)
     {
-        cout << "d[i]="<<d[i] << endl;
+        cout << img.get_arr()[i] << ", ";
     }
 
+    cout << "\nimg*0.5 val:" << endl;
+    for (int i = 0; i < img.size(); ++i)
+    {
+        cout << (img * 0.3).get_arr()[i] << ", ";
+    }
+
+    cout << "\nimg*-1 val:" << endl;
+    for (int i = 0; i < img.size(); ++i)
+    {
+        cout << (img * tensor(dimension("1"), -1.0)).get_arr()[i] << ", ";
+    }
     return 0;
 }

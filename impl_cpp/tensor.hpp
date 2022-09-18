@@ -13,75 +13,58 @@
 
 #include <string>
 #include <cstring>
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
-#include <stdio.h>
+
+
 using namespace std;
 
+/**
+ * @brief 
+ * 
+ */
 class dimension {
     public:
+        dimension(){};
         dimension(string str);
-        int& operator[](int i);
-        int length();
-    private:
         dimension(int num,  int *arr);
-        int num;
-        int *arr;
+        int& operator[](int i);
+        int get_ndim();
+        int accum();
+        int *get_arr(){return arr;};
+    private:
+        int ndim=0;
+        int *arr=NULL;
 };
 
 /**
- * @brief Construct a new dimension::dimension object
+ * @brief 
  * 
- * @param num 有几个维度
- * @param arr 各个维度的大小（数组）
  */
-dimension::dimension(int num,  int *arr)
-{
-    this->num = num;
-    this->arr = arr;
-}
-
-/**
- * @brief Construct a new dimension::dimension object
- * 
- * @param str 字符串输入  形式: "3,1,2,3" 
-                第一个数字代表之后有几个值
- */
-dimension::dimension(string str)
-{
-    int *arr;
-    int num;
-
-    const char *s = str.c_str();
-    printf("dimension %s\n", s);
-    sscanf(s, "%d", &num);
-    s = strchr(s, ',')+1;
-    arr = new int[num];
-
-    for (int i = 0; i < num; i++)
-    {
-        sscanf(s, "%d", &arr[i]);
-        s = strchr(s, ',')+1;
-    }
-    this->num = num;
-    this->arr = arr;
-}
-
-int& dimension::operator[](int i)
-{
-    if (i > num) 
-    {// 超出索引
-        return arr[0];
-    }
-    return arr[i];
-}
-
-int dimension::length(){
-    return num;
-}
-
 class tensor{
+    public:
+        tensor(){};
+        tensor(dimension dim);
+        tensor(dimension dim, float *arr);
+        tensor(dimension dim, float initial_value);
 
+        float *get_arr(){return arr;};
+        dimension shape(){return dim;};
+        int size(){return dim.accum();};
+
+        tensor operator[](int i);
+        tensor operator*(float a);
+        tensor operator+(float a);
+        tensor operator-(float a);
+        tensor operator/(float a);
+        tensor operator*(tensor a);
+        tensor operator+(tensor a);
+        tensor operator-(tensor a);
+        tensor operator/(tensor a);
+    private:
+        dimension dim;
+        float *arr=NULL;
 };
-
 
 #endif
