@@ -162,7 +162,6 @@ tensor tensor::operator[](int i){
         }
     }
 
-    // tensor res = tensor(dimension("1"));
     return res;
 }
 
