@@ -5,11 +5,24 @@ from torch.nn import functional as F
 
 if __name__ == '__main__':
     with torch.no_grad():
-        img = torch.randn(3, 64, 64)
+        img = torch.randn(3, 32, 32)
         ker = torch.randn(16, 3, 3, 3)
-        layer = nn.Conv2d(3, 16, 3, 1, 1, bias=False)
         out = F.conv2d(img, ker, stride=1, padding=1)
+        save_tensor_as_text(img, "img_s1p1k3_test.txt")
+        save_tensor_as_text(ker, "ker_s1p1k3_test.txt")
+        save_tensor_as_text(out, "out_s1p1k3_test.txt.txt")
         
-        save_tensor_as_text(img, "img.txt")
-        save_tensor_as_text(ker, "ker.txt")
-        save_tensor_as_text(out, "out.txt")
+        img = torch.randn(16, 32, 32)
+        ker = torch.randn(24, 16, 1, 1)
+        out = F.conv2d(img, ker, stride=1, padding=0)
+        save_tensor_as_text(img, "img_pw_test.txt")
+        save_tensor_as_text(ker, "ker_pw_test.txt")
+        save_tensor_as_text(out, "out_pw_test.txt")
+
+        img = torch.randn(96, 32, 32)
+        ker = torch.randn(96, 1, 3, 3)
+        out = F.conv2d(img, ker, stride=1, padding=1, groups=96)
+        save_tensor_as_text(img, "img_dw_test.txt")
+        save_tensor_as_text(ker, "ker_dw_test.txt")
+        save_tensor_as_text(out, "out_dw_test.txt")
+        
