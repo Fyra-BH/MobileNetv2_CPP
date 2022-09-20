@@ -1,15 +1,14 @@
 import torch
 from torch import nn
 from utils import save_tensor_as_text
+from torch.nn import functional as F
 
 if __name__ == '__main__':
     with torch.no_grad():
-        img = torch.ones(1, 5, 5).float()
-        ker = torch.randn(1, 1, 3, 3)
-        layer = nn.Conv2d(1, 1, 3, 1, 1)
-        # out = F.conv2d(img, ker, stride=1, padding=1)
-        out = layer(img)
-        ker = next(layer.parameters())
+        img = torch.randn(3, 64, 64)
+        ker = torch.randn(16, 3, 3, 3)
+        layer = nn.Conv2d(3, 16, 3, 1, 1, bias=False)
+        out = F.conv2d(img, ker, stride=1, padding=1)
         
         save_tensor_as_text(img, "img.txt")
         save_tensor_as_text(ker, "ker.txt")
