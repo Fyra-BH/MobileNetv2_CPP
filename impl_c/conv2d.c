@@ -26,9 +26,9 @@ void conv2d_s1p1k3(featureMap *img_in, kernel *ker, featureMap *img_out)
     int ICH = ker->in_channels;
     int IW = img_in->width;
     int IH = img_in->height;
-    int KW = 3;
-    int KH = 3;
-    debug("OCH=%d ICH=%d IW=%d IH=%d KW=%d KH=%d\n", OCH, ICH, IW, IH, KW, KH);
+    int KW = ker->width;
+    int KH = ker->height;
+    // debug("OCH=%d ICH=%d IW=%d IH=%d KW=%d KH=%d\n", OCH, ICH, IW, IH, KW, KH);
 
     for (int och = 0; och < OCH; och++)
     {
@@ -45,14 +45,12 @@ void conv2d_s1p1k3(featureMap *img_in, kernel *ker, featureMap *img_out)
                             if (iw+kw==0 || ih+kh == 0 || iw+kw-1==IW || ih+kh-1==IH)
                             {   // 边界判断
                                 // do nothing
-                                static int cnt = 0;
-                                debug("boundary %d\n", cnt++);
                             }
                             else
-                            {   // img_out[och][iw][ih] += img_in[ich][iw+kw-1][ih+kh-1] * ker[och][ich][kw-1][kh-1]
+                            {   // img_out[och][iw][ih] += img_in[ich][iw+kw-1][ih+kh-1] * ker[och][ich][kw][kh]
                                 *(img_out->data + och*IW*IH + iw*IH + ih) += \
                                 *(img_in->data + ich*IW*IH + (iw+kw-1)*IH + (ih+kh-1)) * \
-                                *(ker->data + och*ICH*KW*KH + ich*KW*KH + (kw-1)*KH + (kh-1));
+                                *(ker->data + och*ICH*KW*KH + ich*KW*KH + kw*KH + kh);
                             }
                         }
                     }
