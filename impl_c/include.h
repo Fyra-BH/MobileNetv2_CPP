@@ -30,4 +30,6 @@
     c*w*h;\
 })
 
+#define pow2(a) ((a)*(a))
+
 #endif
