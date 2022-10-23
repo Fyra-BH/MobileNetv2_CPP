@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from mobilenetv2 import mobilenetv2
 from PIL import Image
+from fuse_bn import fuse_module
 
 SAVED_MODEL = "mobilenetv2_on_cifar10.pth"
 
@@ -13,9 +14,9 @@ if __name__ == '__main__':
         print("Usage: python {} imagefile".format(sys.argv[0]))
         exit(1)
     
-    net = mobilenetv2()
-    net.load_state_dict(torch.load(SAVED_MODEL))
-    net.eval()
+    net = fuse_module()
+    # net.load_state_dict(torch.load(SAVED_MODEL))
+    # net.eval()
 
     img = Image.open(sys.argv[1]).convert('RGB').resize((32, 32))
     img = (np.array(img) / 255.0) * 2.0 - 1.0
