@@ -15,13 +15,13 @@ INCLUDS = \
 CFLAGS =  \
 -DDEBUG
 
-all: compile generate run
+all: param compile run
+
+param:
+	cd ../../py && python export.py
 
 compile: $(CSOURCES)
 	$(CC) $^ $(INCLUDS) $(CFLAGS) -o $(TARGET)
-
-generate:
-	$(PYTHON) ../py/conv2d_test.py
 
 run:
 	./conv2d_test.exe

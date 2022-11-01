@@ -1,5 +1,8 @@
 #include "include.h"
 
+#define _load_feature_map_from_file(t, p) load_feature_map_from_file(t, "txt_param"p)
+#define _load_kernel_from_file(t, p) load_kernel_from_file(t, "txt_param"p)
+
 int main(int argc, char const *argv[])
 {
     featureMap img_in, img_out_py, img_out_c;
@@ -8,9 +11,9 @@ int main(int argc, char const *argv[])
     float err;
 
     debug("---------------------------------------------------------------------------------------\n");
-    load_feature_map_from_file(&img_in, "img_s1p1k3_test.txt");
-    load_feature_map_from_file(&img_out_py, "out_s1p1k3_test.txt");
-    load_kernel_from_file(&ker, "ker_s1p1k3_test.txt");
+    _load_feature_map_from_file(&img_in, "img_s1p1k3_test.txt");
+    _load_feature_map_from_file(&img_out_py, "out_s1p1k3_test.txt");
+    _load_kernel_from_file(&ker, "ker_s1p1k3_test.txt");
 
     len = emptyFeatureMap(img_out_c, img_out_py.channels,\
         img_out_py.width, \
@@ -29,9 +32,9 @@ int main(int argc, char const *argv[])
     debug("err:%f\n", err);
 
     debug("---------------------------------------------------------------------------------------\n");
-    load_feature_map_from_file(&img_in, "img_pw_test.txt");
-    load_feature_map_from_file(&img_out_py, "out_pw_test.txt");
-    load_kernel_from_file(&ker, "ker_pw_test.txt");
+    _load_feature_map_from_file(&img_in, "img_pw_test.txt");
+    _load_feature_map_from_file(&img_out_py, "out_pw_test.txt");
+    _load_kernel_from_file(&ker, "ker_pw_test.txt");
 
     len = emptyFeatureMap(img_out_c, img_out_py.channels,\
         img_out_py.width, \
@@ -50,9 +53,9 @@ int main(int argc, char const *argv[])
     debug("err:%f\n", err);
 
     debug("---------------------------------------------------------------------------------------\n");
-    load_feature_map_from_file(&img_in, "img_dw_test.txt");
-    load_feature_map_from_file(&img_out_py, "out_dw_test.txt");
-    load_kernel_from_file(&ker, "ker_dw_test.txt");
+    _load_feature_map_from_file(&img_in, "img_dw_test.txt");
+    _load_feature_map_from_file(&img_out_py, "out_dw_test.txt");
+    _load_kernel_from_file(&ker, "ker_dw_test.txt");
 
     len = emptyFeatureMap(img_out_c, img_out_py.channels,\
         img_out_py.width, \
@@ -71,9 +74,9 @@ int main(int argc, char const *argv[])
     debug("err:%f\n", err);
 
     debug("---------------------------------------------------------------------------------------\n");
-    load_feature_map_from_file(&img_in, "img_dw_s2_test.txt");
-    load_feature_map_from_file(&img_out_py, "out_dw_s2_test.txt");
-    load_kernel_from_file(&ker, "ker_dw_s2_test.txt");
+    _load_feature_map_from_file(&img_in, "img_dw_s2_test.txt");
+    _load_feature_map_from_file(&img_out_py, "out_dw_s2_test.txt");
+    _load_kernel_from_file(&ker, "ker_dw_s2_test.txt");
 
     len = emptyFeatureMap(img_out_c, img_out_py.channels,\
         img_out_py.width, \
