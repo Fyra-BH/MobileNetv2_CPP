@@ -11,4 +11,8 @@ typedef struct{
     float *data;
 }kernel;
 
+typedef struct{
+    int channels;
+    float *data;
+}bias;
 #endif
