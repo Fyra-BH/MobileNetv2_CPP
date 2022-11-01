@@ -1,3 +1,6 @@
+import ssl
+ 
+ssl._create_default_https_context = ssl._create_unverified_context
 import torch
 import torch.optim as optim
 import os
@@ -5,15 +8,15 @@ import os
 from torch import nn
 from torchvision.datasets import CIFAR10
 from torchvision import transforms
-from mobilenetv2 import mobilenetv2
+from mobilenetv2_simp import mobilenetv2
 from os import path
 
 ####################################
-NUM_EPOCH   = 2
+NUM_EPOCH   = 200
 THREADS     = 8
-BATCH_SIZE  = 128
+BATCH_SIZE  = 2048
 PRINT_INTERVAL = 100
-SAVED_FILE = 'mobilenetv2_on_cifar10.pth'
+SAVED_FILE = 'mobilenetv2_on_cifar10_simp.pth'
 ####################################
 
 if __name__ == "__main__":
@@ -47,7 +50,7 @@ if __name__ == "__main__":
         num_workers=THREADS)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    # device = torch.device("cpu")
 
     cnn = mobilenetv2()
     cnn = cnn.to(device)
